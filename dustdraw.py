@@ -85,7 +85,36 @@ class node:
     def changeSize(self, window, canvas, width2):
         canvas.itemconfig(self.star, width=width2)
 
-
+class edge:
+    def __init__(self, window, canvas, xpos, ypos, xpos2, ypos2, conscripted, xvel, yvel):
+        self.xpos = xpos
+        self.ypos = ypos
+        self.xpos2 = xpos2
+        self.ypos2 = ypos2
+        self.rx = None
+        self.ry = None
+        self.conscripted = False
+        self.xvel = 0
+        self.yvel = 0
+        self.lien = canvas.create_line(self.xpos,self.ypos, self.xpos2, self.ypos2,fill="black", outline="black", width=1)
+    def getxvel(self):
+        return(self.xvel)
+    def getyvel(self):
+        return(self.yvel)
+    def getLien(self):
+        return(self.lien)
+    def getConscripted(self):
+        return(self.conscripted)
+    def release(self):
+        self.conscripted=False
+        self.changeColor(animation_window,animation_canvas,"black")
+        #self.changeSize(animation_window,animation_canvas, 1)
+        self.rx=None
+        self.ry=None
+        self.xvel=random.randint(-5,5)
+        self.yvel=random.randint(-5,5)
+    def changeColor(self, window, canvas, color):
+        canvas.itemconfig(self.lien, fill=color)
 
 
 # The main window of the animation
@@ -95,6 +124,7 @@ def create_animation_window():
   # Uses python 3.6+ string interpolation
   window.geometry(f'{animation_window_width}x{animation_window_height}')
   return window
+
 
 def conscript(window,canvas, nodelist, letter, xdest ,ydest):
 
